@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 
-// ws://librekwiz.com/ws/quiz/4H74/Lucas%20Corbray
 
-const JoinGame = () => 
+const JoinScreen = ({navigation}) => {
+  const [joinState, setJoinState] = useState({"pin":"","name":""})
+  return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.header}>
@@ -16,27 +17,28 @@ const JoinGame = () =>
       <TextInput
         style={styles.input}
         placeholder='Aquí el PIN'
-        // onChangeText={text => onChangeText(text)}
-        // value={value}
+        onChangeText={text => setJoinState({...joinState, "pin":text.toUpperCase()})}
+        value={joinState.pin}
       />
       <TextInput
         style={styles.input}
         placeholder='Aquí tu Alias'
-        // onChangeText={text => onChangeText(text)}
-        // value={value}
+        onChangeText={text => setJoinState({...joinState, "name":text})}
+        value={joinState.name}
       />
       <TouchableOpacity
         accessible={true}
         accessibilityHint="Entrar al Qwiz"
         accessibilityLabel="¡Vamos!"
         accessibilityRole="button"
-        onPress={()=>console.log('Pressed')}>
+        onPress={()=>navigation.navigate('Game', { ...joinState })}>
         <View style={styles.button}>
           <Text style={styles.btnText}>¡VAMOS!</Text>
         </View>
       </TouchableOpacity>
     </View>
-
+  )
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -85,4 +87,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default JoinGame;
+export default JoinScreen;
