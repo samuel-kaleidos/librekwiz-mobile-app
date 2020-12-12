@@ -9,14 +9,26 @@ export const GameScreen = (props) => {
   }
   const webSocket = new WebSocket(`ws://librekwiz.com/ws/quiz/${gameProps.pincode}/${gameProps.name}`);
 
-
-
-
-  console.log(props.route.params.name, props.route.params.pin)
   return (
-    <View>
-      <Text>Pagina Preguntas</Text>
+    <View style={styles.container}>
       <QuestionComponent props={gameProps} webSocket={webSocket}/>
     </View>
   )
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  titleWaiting: {
+    fontFamily:"poppins-bold",
+    fontSize: 36,
+  },
+  titleWaiting: {
+    fontFamily:"poppins-regular",
+    fontSize: 18,
+  },
+  logo: {
+    flex:1
+  },
+
+});

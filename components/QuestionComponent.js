@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
-import {  Text, View, TouchableOpacity } from 'react-native';
+import {  Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 
 const QuestionComponent = ({webSocket, props}) => {
@@ -87,19 +87,22 @@ const QuestionComponent = ({webSocket, props}) => {
   }
   if(isAnswered) {
     return <View>
-        <Text>¿Qué será, será?</Text>
-        <Text>Forever will be, will be</Text>
+        <Text style={styles.titleWaiting}>¿Qué será, será?</Text>
+        <Text style={styles.textWaiting}>Forever will be, will be</Text>
       </View>
   }
 
   const arr = [{class:'a-A', type: 'A'}, {class:'a-B', type: 'B'}, {class:'a-C', type: 'C'}, {class:'a-D', type: 'D'}]
 
   return (
-    <View>
+    <View style={styles.container}>
       { !state.command ? 
-        <View>
-          <Text>¡Ya estás dentro!</Text>
-          <Text>Paciencia que empezamos en nada</Text>
+        <View style={styles.container}>
+          <View style={styles.waitingContainer}>
+            <Text style={styles.titleWaiting}>¡Ya estás dentro!</Text>
+            <Text style={styles.textWaiting}>Paciencia que empezamos en nada</Text>
+          </View>
+          <Image style={styles.logo} source={require('../assets/img/kwizzie-waiting.png')}/>
         </View>
         :
         <View>
@@ -150,5 +153,33 @@ const QuestionComponent = ({webSocket, props}) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#83ffcd',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    paddingHorizontal: 20
+  },
+  waitingContainer: {
+    flex: 1,
+    alignItems:"center",
+    justifyContent: "center"
+  },
+  titleWaiting: {
+    fontFamily:"poppins-bold",
+    fontSize: 24,
+  },
+  titleWaiting: {
+    fontFamily:"poppins-regular",
+    fontSize: 18,
+  },
+  logo: {
+    
+  }
+
+
+});
 
 export default QuestionComponent;

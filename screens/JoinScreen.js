@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'reac
 
 
 const JoinScreen = ({navigation}) => {
-  const [joinState, setJoinState] = useState({"pin":"","name":""})
+  const [joinState, setJoinState] = useState({pin:"",name:""})
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -14,28 +14,30 @@ const JoinScreen = ({navigation}) => {
         <Text style={styles.title}>Libre</Text>
         <Text style={styles.title}>Kwiz</Text>
       </View>
-      <TextInput
-        style={styles.input}
-        placeholder='Aquí el PIN'
-        onChangeText={text => setJoinState({...joinState, "pin":text.toUpperCase()})}
-        value={joinState.pin}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Aquí tu Alias'
-        onChangeText={text => setJoinState({...joinState, "name":text})}
-        value={joinState.name}
-      />
-      <TouchableOpacity
-        accessible={true}
-        accessibilityHint="Entrar al Qwiz"
-        accessibilityLabel="¡Vamos!"
-        accessibilityRole="button"
-        onPress={()=>navigation.navigate('Game', { ...joinState })}>
-        <View style={styles.button}>
-          <Text style={styles.btnText}>¡VAMOS!</Text>
-        </View>
-      </TouchableOpacity>
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder='Aquí tu Alias'
+          onChangeText={text => setJoinState({...joinState, "name":text})}
+          value={joinState.name}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Aquí el PIN'
+          onChangeText={text => setJoinState({...joinState, "pin":text})}
+          value={joinState.pin}
+        />
+        <TouchableOpacity
+          accessible={true}
+          accessibilityHint="Entrar al Qwiz"
+          accessibilityLabel="¡Vamos!"
+          accessibilityRole="button"
+          onPress={()=>navigation.navigate('Game', { name: joinState.name, pin: joinState.pin.toUpperCase() })}>
+          <View style={styles.button}>
+            <Text style={styles.btnText}>¡VAMOS!</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -48,41 +50,46 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   input: {
+    borderRadius:12,
     height: 54,
     width:'100%',
     backgroundColor:'#fff',
     color:'#000',
-    borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 0,
     paddingHorizontal: 20,
     marginBottom: 16,
     fontSize: 18,
-    fontWeight:"700"
+    fontFamily: "poppins-medium",
   },
   header: {
     alignItems: "center",
+    flex:2,
+    justifyContent:"center",
+    marginBottom: 32,
     textAlign: "center",
     width:'100%',
-    marginBottom: 32,
+  },
+  formContainer: {
+    flex:1
   },
   logo: {
     marginBottom: 16
   },
   title: {
-    fontWeight: "700",
-    lineHeight: 56,
+    fontFamily: "poppins-black",
+    lineHeight: 66,
     fontSize: 56,
   },
   button: {
     backgroundColor: "#000",
-    borderRadius: 5,
+    borderRadius: 12,
     height: 54,
     justifyContent: "center"
   },
   btnText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight:"700",
+    fontFamily: "poppins-bold",
     textAlign: "center"
   }
 });
