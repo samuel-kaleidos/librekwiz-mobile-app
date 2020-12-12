@@ -18,17 +18,5 @@ export const GameScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  titleWaiting: {
-    fontFamily:"poppins-bold",
-    fontSize: 36,
-  },
-  titleWaiting: {
-    fontFamily:"poppins-regular",
-    fontSize: 18,
-  },
-  logo: {
-    flex:1
-  },
-
+  }
 });

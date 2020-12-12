@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
 import {  Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import  WaitingComponent from './WaitingComponent'
 
 
 const QuestionComponent = ({webSocket, props}) => {
@@ -96,15 +97,7 @@ const QuestionComponent = ({webSocket, props}) => {
 
   return (
     <View style={styles.container}>
-      { !state.command ? 
-        <View style={styles.container}>
-          <View style={styles.waitingContainer}>
-            <Text style={styles.titleWaiting}>¡Ya estás dentro!</Text>
-            <Text style={styles.textWaiting}>Paciencia que empezamos en nada</Text>
-          </View>
-          <Image style={styles.logo} source={require('../assets/img/kwizzie-waiting.png')}/>
-        </View>
-        :
+      { !state.command ? <WaitingComponent/> :
         <View>
           <View>
             <Text>Pin {props.pincode}</Text>
@@ -161,24 +154,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     paddingHorizontal: 20
-  },
-  waitingContainer: {
-    flex: 1,
-    alignItems:"center",
-    justifyContent: "center"
-  },
-  titleWaiting: {
-    fontFamily:"poppins-bold",
-    fontSize: 24,
-  },
-  titleWaiting: {
-    fontFamily:"poppins-regular",
-    fontSize: 18,
-  },
-  logo: {
-    
   }
-
 
 });
 
