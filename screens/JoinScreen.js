@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "poppins-medium",
   },
+  pin: {
+    textTransform: "uppercase"
+  },
   header: {
     alignItems: "center",
     flex:2,

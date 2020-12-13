@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
-import {  Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import  WaitingComponent from './WaitingComponent';
 import CardContainerComponent from './CardContainerComponent';
 
@@ -24,7 +24,6 @@ const GameContainer = ({webSocket, props}) => {
   useEffect(()=>{
     webSocket.onmessage = ({data})=>{
       const obj = JSON.parse(data)
-      console.log(obj)
       if(obj.command === 'QUESTION') {
         setState({
           ...state,
@@ -87,26 +86,26 @@ const GameContainer = ({webSocket, props}) => {
     webSocket.send(answer);
     setIsAnswered(true);
   }
-  if(isAnswered) {
-    return <View>
-        <Text style={styles.titleWaiting}>¿Qué será, será?</Text>
-        <Text style={styles.textWaiting}>Forever will be, will be</Text>
-      </View>
-  }
-
+  
   return (
     <View style={styles.container}>
-      { !state.command ? <WaitingComponent/> : <CardContainerComponent {...props} {...state} sendAnswer={sendAnswer}/>}
+      { !state.command ? 
+        <WaitingComponent/> : 
+        <CardContainerComponent 
+          {...props}
+          {...state}
+          isAnswered={isAnswered}
+          sendAnswer={sendAnswer}
+        />
+      }
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#ffffff"
   }
-
 });
 
 export default GameContainer;

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import {  Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {  Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 const CardQuestionComponent = (props) => {
   const letter = ["A", "B", "C", "D"];
@@ -10,13 +10,13 @@ const CardQuestionComponent = (props) => {
         <Text style={styles.questiontext}>{props.text}</Text>
       </View>
       <View style={styles.answerContainer}>
-        {props.options.map((item, index)=>
-        <TouchableOpacity 
+        {props.options.map((item, index)=> item.text ?
+        <TouchableOpacity key={index}
           style={{...styles.answerOption, backgroundColor:answerBackgroundColors[index] }}
           onPress={()=>props.sendAnswer(item.text)} >
           <Text style={styles.letterText}>{letter[index]}</Text>
           <Text style={styles.answerText}>{item.text}</Text>
-        </TouchableOpacity>)}
+        </TouchableOpacity>:null)}
       </View>
     </Fragment>
 );}
