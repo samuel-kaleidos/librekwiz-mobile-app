@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
-import QuestionComponent from '../components/QuestionComponent';
+import GameContainer from '../components/GameContainer';
 
 export const GameScreen = (props) => {
   const gameProps = {
@@ -11,7 +11,7 @@ export const GameScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <QuestionComponent props={gameProps} webSocket={webSocket}/>
+      <GameContainer props={gameProps} webSocket={webSocket}/>
     </View>
   )
 }

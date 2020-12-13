@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
 import {  Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import  WaitingComponent from './WaitingComponent'
+import  WaitingComponent from './WaitingComponent';
+import CardContainerComponent from './CardContainerComponent';
 
 
-const QuestionComponent = ({webSocket, props}) => {
+const GameContainer = ({webSocket, props}) => {
   const [isAnswered, setIsAnswered] = useState(false)
   const [state, setState] = useState({
     command: '',
@@ -93,56 +94,9 @@ const QuestionComponent = ({webSocket, props}) => {
       </View>
   }
 
-  const arr = [{class:'a-A', type: 'A'}, {class:'a-B', type: 'B'}, {class:'a-C', type: 'C'}, {class:'a-D', type: 'D'}]
-
   return (
     <View style={styles.container}>
-      { !state.command ? <WaitingComponent/> :
-        <View>
-          <View>
-            <Text>Pin {props.pincode}</Text>
-            <Text>{state.counterQuestions}/{state.numQuestions}</Text>
-          </View>
-          <View>
-            {(()=>{
-              switch (state.command) {
-                case 'QUESTION':
-                  return <View>
-                    <Text>{state.text}</Text>
-                    <View>
-                      {state.options.map((item, index)=>
-                      <TouchableOpacity onPress={()=>sendAnswer(state.options[index].text)}>
-                        <Text>{state.options[index].type}</Text>
-                        <Text>{state.options[index].text}</Text>
-                      </TouchableOpacity>)}
-                    </View>
-                  </View>
-                case 'STATISTICS':
-                  (state.correct === state.answer) ?
-                  <View>
-                    <Text>¡Correcto!</Text>
-                    <Text>A por la siguiente</Text>
-                  </View>
-                  :
-                  <View>
-                    <Text>¡Ay mecachis!</Text>
-                    <Text>Suerte con la próxima</Text>
-                  </View>
-                case 'END':
-                  return <View>
-                    <Text>Has quedado en la posición</Text>
-                    <Text>{state.position}</Text>
-                  </View>
-                }
-              })()
-            }
-          </View>
-          <View>
-            <Text>{ props.name }</Text>
-            <Text>{state.score} puntos</Text>
-          </View>
-        </View>
-      }
+      { !state.command ? <WaitingComponent/> : <CardContainerComponent {...props} {...state} sendAnswer={sendAnswer}/>}
     </View>
   )
 }
@@ -150,12 +104,9 @@ const QuestionComponent = ({webSocket, props}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#83ffcd',
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    paddingHorizontal: 20
+    backgroundColor: '#fff'
   }
 
 });
 
-export default QuestionComponent;
+export default GameContainer;
